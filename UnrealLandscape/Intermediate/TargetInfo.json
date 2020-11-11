@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "UnrealLandscape",
+			"Path": "C:\\Users\\Kristina\\Documents\\projects\\UnrealLandscape\\Source\\UnrealLandscape.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "UnrealLandscapeEditor",
+			"Path": "C:\\Users\\Kristina\\Documents\\projects\\UnrealLandscape\\Source\\UnrealLandscapeEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"C:\\Users\\Kristina\\Documents\\projects\\UnrealLandscape\\Source\\UnrealLandscape\\UnrealLandscape.Build.cs",
+		"C:\\Users\\Kristina\\Documents\\projects\\UnrealLandscape\\Source\\UnrealLandscape.Target.cs",
+		"C:\\Users\\Kristina\\Documents\\projects\\UnrealLandscape\\Source\\UnrealLandscapeEditor.Target.cs"
+	],
+	"EngineVersion": "4.25.4"
+}

@@ -1,0 +1,17 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UE4Editor-UnrealLandscape-9867.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\Kristina\Documents\projects\UnrealLandscape\Intermediate\Build\Win64\UnrealLandscapeEditor\Development\Engine\SharedPCH.Engine.ShadowErrors.h.obj"
+"C:\Users\Kristina\Documents\projects\UnrealLandscape\Intermediate\Build\Win64\UE4Editor\Development\UnrealLandscape\LandscapeColor.cpp.obj"
+"C:\Users\Kristina\Documents\projects\UnrealLandscape\Intermediate\Build\Win64\UE4Editor\Development\UnrealLandscape\UnrealLandscape.cpp.obj"
+"C:\Users\Kristina\Documents\projects\UnrealLandscape\Intermediate\Build\Win64\UE4Editor\Development\UnrealLandscape\UnrealLandscapeGameModeBase.cpp.obj"
+"C:\Users\Kristina\Documents\projects\UnrealLandscape\Intermediate\Build\Win64\UE4Editor\Development\UnrealLandscape\UnrealLandscape.init.gen.cpp.obj"
+"C:\Users\Kristina\Documents\projects\UnrealLandscape\Intermediate\Build\Win64\UE4Editor\Development\UnrealLandscape\UnrealLandscapeGameModeBase.gen.cpp.obj"
+"C:\Users\Kristina\Documents\projects\UnrealLandscape\Intermediate\Build\Win64\UE4Editor\Development\UnrealLandscape\Default.rc2.res"
+/OUT:"C:\Users\Kristina\Documents\projects\UnrealLandscape\Intermediate\Build\Win64\UE4Editor\Development\UnrealLandscape\UE4Editor-UnrealLandscape-9867.lib"
+/INCLUDE:IMPLEMENT_MODULE_UnrealLandscape

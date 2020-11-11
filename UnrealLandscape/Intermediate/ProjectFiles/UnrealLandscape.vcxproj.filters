@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\UnrealLandscape.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{38521DAB-2A4A-4494-91EB-EFED63474551}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\UnrealLandscape.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\UnrealLandscapeEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{140EB2E7-3C4E-4370-A968-197D3172867E}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\UnrealLandscape">
+      <UniqueIdentifier>{704865DF-B959-4C5F-B0C8-8CF8FFCC8B53}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\UnrealLandscape\LandscapeColor.cpp">
+      <Filter>Source\UnrealLandscape</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UnrealLandscape\LandscapeColor.h">
+      <Filter>Source\UnrealLandscape</Filter>
+    </ClInclude>
+    <None Include="..\..\Source\UnrealLandscape\UnrealLandscape.Build.cs">
+      <Filter>Source\UnrealLandscape</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\UnrealLandscape\UnrealLandscape.cpp">
+      <Filter>Source\UnrealLandscape</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UnrealLandscape\UnrealLandscape.h">
+      <Filter>Source\UnrealLandscape</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\UnrealLandscape\UnrealLandscapeGameModeBase.cpp">
+      <Filter>Source\UnrealLandscape</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\UnrealLandscape\UnrealLandscapeGameModeBase.h">
+      <Filter>Source\UnrealLandscape</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

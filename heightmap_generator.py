@@ -4,37 +4,35 @@ import png
 import random
 
 
-def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, algorithm="thousand needles"):
+def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, algorithm="thousand needles", thhighpoints = 300, thdotsize = 30, thsmoothing = 40):
     # max value of pixel
     maxval = pow(2, 16) - 1
     image = [[0 for i in range(height)] for j in range(width)]
 
     if algorithm == "thousand needles":
-        highpoints = 1000
-        dotsize = 12
 
         print("creating Thousand Needles Heightmap")
 
-        for i in range(highpoints):
-            rndheight = random.randint(0 + dotsize, height - 1 - dotsize)
-            rndwidth = random.randint(0 + dotsize, width - 1 - dotsize)
+        for i in range(thhighpoints):
+            rndheight = random.randint(0 + thdotsize, height - 1 - thdotsize)
+            rndwidth = random.randint(0 + thdotsize, width - 1 - thdotsize)
             rndint = random.randint(0, maxval)
             image[rndheight][rndwidth] = maxval
-            for j in range(-dotsize, dotsize):
-                for k in range(-dotsize, dotsize):
+            for j in range(-thdotsize, thdotsize):
+                for k in range(-thdotsize, thdotsize):
                     image[rndheight+j][rndwidth+k] = maxval
             #print(image[rndheight][rndwidth])
 
-        smoothing = 40
 
-        for step in range(smoothing):
+
+        for step in range(thsmoothing):
             for i in range(height):
                 for j in range(width):
                     image[i][j] = (int)(
                         (image[max(0, i - 1)][j] + image[i][max(0, j - 1)] + image[min(height - 1, i + 1)][j] +
                          image[i][min(width - 1, j + 1)] + image[i][j])/5)
             # print(image[rndheight][rndwidth])
-            print("progress at ", step + 1, " out of ", smoothing)
+            print("progress at ", step + 1, " out of ", thsmoothing)
 
         # print(len(image), "...", len(image[0]))
 

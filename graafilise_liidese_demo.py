@@ -2,6 +2,7 @@
 
 import tkinter as tk
 import tkinter.filedialog
+from tkinter.font import Font
 from functools import partial
 
 
@@ -31,8 +32,8 @@ def create_dropdown(frame, default_value, options):
     return pointer, option_menu
 
 
-def create_spinbox(frame, start, stop, step):
-    spin = tk.Spinbox(frame, values=[i for i in range(start, stop+step, step)])
+def create_spinbox(frame, start, stop, step, **kwargs):
+    spin = tk.Spinbox(frame, values=[i for i in range(start, stop+step, step)], **kwargs)
 
     return spin
 
@@ -58,7 +59,7 @@ if __name__ == '__main__':
     a = [1, 2, 3]
     # Elemendid lisatakse pakkimise järjekorras
     dropdown_value, dropdown = create_dropdown(frame1, 1, a)
-    skroller = create_spinbox(frame1, 1, 10, 1)
+    skroller = create_spinbox(frame1, 1, 10, 1, width=10, font=Font(family='Helvetica', size=12))
     button2 = create_button(frame1, "Hello", write_to_console, dropdown_value, skroller)
     button2.pack()
     dropdown.pack()
@@ -74,6 +75,7 @@ if __name__ == '__main__':
 
     button1.pack()
 
+    juur.minsize(500, 100)
     juur.mainloop()
 
 

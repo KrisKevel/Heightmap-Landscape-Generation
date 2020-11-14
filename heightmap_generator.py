@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 
+# pip install pypng
 import png
 import random
 
 
-def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, algorithm="thousand needles", thhighpoints = 300, thdotsize = 30, thsmoothing = 40):
+def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, algorithm="thousand needles",
+                       thhighpoints=300, thdotsize=30, thsmoothing=40, save_loc="heightmap.png"):
     # max value of pixel
     maxval = pow(2, 16) - 1
     image = [[0 for i in range(height)] for j in range(width)]
@@ -36,9 +38,7 @@ def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, alg
 
         # print(len(image), "...", len(image[0]))
 
-    with open("heightmap.png", "wb") as file:
+    with open(save_loc, "wb") as file:
         w = png.Writer(height=height, width=width, greyscale=greyscale, bitdepth=bitdepth)
         w.write(file, image)
 
-
-generate_heightmap()

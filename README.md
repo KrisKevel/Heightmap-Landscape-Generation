@@ -1,7 +1,7 @@
 # Heightmap Landscape Generation
 
 ## Heightmap Generation
-<insert build/run instructions here>
+Run genereeri.py via "python3 genereeri.py" or enable execution of the file via "chmod +x genereeri.py" and launch it using "./genereeri.py" (Note: requires Python modules tkinter and pypng). In the newly opened GUI, modify desired values before clicking on "Create". The script will then produce a PNG-image that can be imported to UE4 in the next step, this generation may take a few minutes.
 
 
 ## Importing newly created heightmap into Unreal Engine project

@@ -1,3 +1,3 @@
-C:\Users\Kristina\Documents\projects\UnrealLandscape\Intermediate\Build\Win64\UE4Editor\Development\UnrealLandscape\Definitions.UnrealLandscape.h
-C:\Users\Kristina\Documents\projects\UnrealLandscape\Source\UnrealLandscape\LandscapeColor.h
-C:\Users\Kristina\Documents\projects\UnrealLandscape\Intermediate\Build\Win64\UE4Editor\Inc\UnrealLandscape\LandscapeColor.generated.h
+C:\Users\Kristina\Documents\projects\HeightmapLandscape\UnrealLandscape\Intermediate\Build\Win64\UE4Editor\Development\UnrealLandscape\Definitions.UnrealLandscape.h
+C:\Users\Kristina\Documents\projects\HeightmapLandscape\UnrealLandscape\Source\UnrealLandscape\LandscapeColor.h
+C:\Users\Kristina\Documents\projects\HeightmapLandscape\UnrealLandscape\Intermediate\Build\Win64\UE4Editor\Inc\UnrealLandscape\LandscapeColor.generated.h

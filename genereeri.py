@@ -28,14 +28,22 @@ def create_button(frame, text, command, *args, **kwargs):
 def create_radio(frame):
     radioframe = tk.Frame(frame)
     var = tk.IntVar()
-    r1 = tk.Radiobutton(radioframe, text="Üks", variable=var, value=1, command=lambda: print(var.get()))
+    r1 = tk.Radiobutton(radioframe, text="Üks", variable=var, value=1, command=lambda: one(var))
     r1.pack()
-    r2 = tk.Radiobutton(radioframe, text="Kaks", variable=var, value=2, command=lambda: print(var.get()))
+    r2 = tk.Radiobutton(radioframe, text="Kaks", variable=var, value=2, command=lambda: two(var))
     r2.pack()
-    r3 = tk.Radiobutton(radioframe, text="Kolm", variable=var, value=3, command=lambda: print(var.get()))
+    r3 = tk.Radiobutton(radioframe, text="Kolm", variable=var, value=3, command=lambda: three(var))
     r3.pack()
     return radioframe
 
+def one(var):
+    print(var.get())
+
+def two(var):
+    print(var.get())
+
+def three(var):
+    print(var.get())
 
 def create_dropdown(frame, default_value, options):
     pointer = tk.IntVar(frame)

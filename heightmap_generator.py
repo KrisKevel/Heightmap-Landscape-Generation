@@ -12,10 +12,10 @@ from itertools import chain
 from copy import deepcopy
 
 
-def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, algorithm="thousand needles",
+def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, algorithm="perlin",
                        thhighpoints=300, thdotsize=30, thsmoothing=40, save_loc="heightmap.png"):
     # max value of pixel
-    maxval = pow(2, 16) - 1
+    maxval = pow(2, bitdepth) - 1
     image = [[0 for i in range(height)] for j in range(width)]
 
     if algorithm == "thousand needles":
@@ -58,25 +58,24 @@ def thousandNeedles(image, height, width, thhighpoints=300, thdotsize=30, thsmoo
 # Code was inspired by and based on the blog post https://engineeredjoy.com/blog/perlin-noise/
 def perlin(image, height, width, maxval=pow(2, 16) - 1, scale=400, octaves=30, persistence=0.2, lacunarity=2,
            seed=None):
-    if not seed:
+    if seed is None:
         seed = np.random.randint(0, 100)
         print("creating Perlin Noise heightmap, seed was {}".format(seed))
-    for i in range(height):
-        for j in range(width):
-            image[i][j] = pnoise2(i / scale,
-                                  j / scale,
-                                  octaves=octaves,
-                                  persistence=persistence,
-                                  lacunarity=lacunarity,
-                                  repeatx=1024,
-                                  repeaty=1024,
-                                  base=seed)
-    max_arr = np.max(image)
-    min_arr = np.min(image)
+    image = [[pnoise2(i / scale,
+                      j / scale,
+                      octaves=octaves,
+                      persistence=persistence,
+                      lacunarity=lacunarity,
+                      repeatx=1024,
+                      repeaty=1024,
+                      base=seed)
+              for j in range(width)]
+              for i in range(height)]
 
-    for i in range(len(image)):
-        for j in range(len(image[0])):
-            image[i][j] = abs(math.floor(image[i][j] * maxval))
+    image = [[abs(math.floor(image[i][j] * maxval))
+              for j in range(len(image[0]))]#width
+              for i in range(len(image))]   #height
+
     return image
 
 

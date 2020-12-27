@@ -6,6 +6,9 @@ from tkinter.messagebox import showerror
 from tkinter.font import Font
 from functools import partial
 from heightmap_generator import generate_heightmap
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+
 
 class SaveLoc:
     def __init__(self, save_location):
@@ -51,21 +54,6 @@ def create_heightmap(width_source, height_source, file_loc, algorithm,
             generate_heightmap(height=height_source.get(), width=width_source.get(),
                                algorithm=algorithm, save_loc=file_loc.get())
 
-        # img_window = tk.Tk()
-        # img_window.title(file_loc.get())
-        # img_window.geometry("800x600")
-        # img_window.configure(background="grey")
-        #
-        # canvas = tk.Canvas(img_window, width=800, height=600)
-        # canvas.pack()
-        #
-        # path = file_loc.get()
-        # img = ImageTk.PhotoImage(Image.open(path), master=canvas)
-        # canvas.create_image(0, 0, image=img)
-        # img_window.mainloop()
-
-        import matplotlib.pyplot as plt
-        import matplotlib.image as mpimg
         img = mpimg.imread(file_loc.get())
         imgplot = plt.imshow(img, cmap=plt.get_cmap('gray'), vmin=0, vmax=1)
         plt.show()

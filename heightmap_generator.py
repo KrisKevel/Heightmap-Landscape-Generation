@@ -13,7 +13,8 @@ from copy import deepcopy
 
 
 def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, algorithm="perlin",
-                       thhighpoints=300, thdotsize=30, thsmoothing=40, save_loc="heightmap.png"):
+                       thhighpoints=300, thdotsize=30, thsmoothing=40, save_loc="heightmap.png",
+                       scale=400, octaves=30, lacunarity=2, persistence=0.2, seed=None):
     # max value of pixel
     maxval = pow(2, bitdepth) - 1
     image = [[0 for i in range(height)] for j in range(width)]
@@ -21,7 +22,7 @@ def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, alg
     if algorithm == "thousand needles":
         image = thousandNeedles(image, height, width, thhighpoints, thdotsize, thsmoothing, maxval)
     elif algorithm == "perlin":
-        image = perlin(image, height, width, maxval)
+        image = perlin(image, height, width, maxval, scale, octaves, persistence, lacunarity, seed)
     elif algorithm == "diamondsquare":
         image = diamond_square(height, bitdepth)
 

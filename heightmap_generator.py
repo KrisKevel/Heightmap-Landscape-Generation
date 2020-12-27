@@ -13,7 +13,8 @@ from copy import deepcopy
 
 
 def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, algorithm="perlin",
-                       thhighpoints=300, thdotsize=30, thsmoothing=40, save_loc="heightmap.png", seed=None, secondstrength=None):
+                       thhighpoints=300, thdotsize=30, thsmoothing=40, save_loc="heightmap.png",
+                       scale=400, octaves=30, lacunarity=2, persistence=0.2, seed=None):
     # max value of pixel
     maxval = pow(2, bitdepth) - 1
     image = [[0 for i in range(height)] for j in range(width)]
@@ -21,7 +22,7 @@ def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, alg
     if algorithm == "thousand needles":
         image = thousandNeedles(image, height, width, thhighpoints, thdotsize, thsmoothing, maxval)
     elif algorithm == "perlin":
-        image = perlin(image, height, width, maxval, seed=seed, secondstrength=secondstrength)
+        image = perlin(image, height, width, maxval, scale, octaves, persistence, lacunarity, seed)
     elif algorithm == "diamondsquare":
         image = diamond_square(height, bitdepth)
 
@@ -58,7 +59,6 @@ def thousandNeedles(image, height, width, thhighpoints=300, thdotsize=30, thsmoo
 # Code was inspired by and based on the blog post https://engineeredjoy.com/blog/perlin-noise/
 def perlin(image, height, width, maxval=pow(2, 16) - 1, scale=400, octaves=30, persistence=0.2, lacunarity=2,
            seed=None, secondstrength = 60):
-
     if seed is None:
         seed = np.random.randint(0, 100)
         print("creating Perlin Noise heightmap, seed was {}".format(seed))
@@ -74,30 +74,12 @@ def perlin(image, height, width, maxval=pow(2, 16) - 1, scale=400, octaves=30, p
               for j in range(width)]
               for i in range(height)]
 
-    secondnoise = [[pnoise2(i / scale,
-                      j / scale,
-                      octaves=octaves,
-                      persistence=persistence,
-                      lacunarity=lacunarity,
-                      repeatx=1024,
-                      repeaty=1024,
-                      base=seed+1)
-              for j in range(width)]
-              for i in range(height)]
-
-    if secondstrength is False:
-        image = [[abs(math.floor(image[i][j] * maxval))
-              for j in range(width)]
-              for i in range(height)]
-    else:
-    #Normalizing noise to be in the range [0, maxval], adding noise ranging from [-maxval/secondstrength, maxval/secondstrength]
-        image = [[abs(math.floor(image[i][j] * (maxval - maxval / secondstrength) + (secondnoise[i][j] - 0.5) * maxval / (secondstrength*2) + maxval / secondstrength))
-              for j in range(width)]
-              for i in range(height)]
+    image = [[abs(math.floor(image[i][j] * maxval))
+              for j in range(len(image[0]))]#width
+              for i in range(len(image))]   #height
 
     return image
 
-generate_heightmap(height=2017, width=2017, seed=10, secondstrength=10)
 
 def diamond(heightmap, magnitude, max_val):
     size = len(heightmap)

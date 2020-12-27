@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
+import random
 import tkinter as tk
 import tkinter.filedialog
 from tkinter.messagebox import showerror
 from tkinter.font import Font
 from functools import partial
 from heightmap_generator import generate_heightmap
-from PIL import ImageTk, Image
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 
 class SaveLoc:
@@ -40,34 +42,31 @@ def create_spinbox(frame, start, stop, step, **kwargs):
     return spin
 
 
-def create_heightmap(width_source, height_source, file_loc, algorithm,
-                     thhighpoints_source=None, thdotsize_source=None, thsmoothing_source=None):
+def create_heightmap(width_src, height_src, file_loc, algorithm,
+                     thhighpoints_src=None, thdotsize_src=None, thsmoothing_src=None,
+                     scale_src=None, octaves_src=None, lacunarity_src=None, persistence_src=None, seed_src=None, secondstr_src=None):
     if file_loc.get() != "":
         if algorithm == "thousand needles":
-            generate_heightmap(height=height_source.get(), width=width_source.get(), algorithm="thousand needles",
-                               thhighpoints=thhighpoints_source.get(),
-                               thdotsize=thdotsize_source.get(),
-                               thsmoothing=thsmoothing_source.get(),
+            generate_heightmap(height=height_src.get(), width=width_src.get(), algorithm="thousand needles",
+                               thhighpoints=thhighpoints_src.get(),
+                               thdotsize=thdotsize_src.get(),
+                               thsmoothing=thsmoothing_src.get(),
+                               save_loc=file_loc.get())
+        elif algorithm == "perlin":
+            generate_heightmap(height=height_src.get(), width=width_src.get(), algorithm="perlin",
+                               scale=scale_src.get(),
+                               octaves=octaves_src.get(),
+                               lacunarity=lacunarity_src.get()/100,
+                               persistence=persistence_src.get()/100,
+                               seed=seed_src.get(),
                                save_loc=file_loc.get())
         else:
-            generate_heightmap(height=height_source.get(), width=width_source.get(),
+            generate_heightmap(height=height_src.get(), width=width_src.get(),
                                algorithm=algorithm, save_loc=file_loc.get())
 
-        # img_window = tk.Tk()
-        # img_window.title(file_loc.get())
-        # img_window.geometry("800x600")
-        # img_window.configure(background="grey")
-        #
-        # canvas = tk.Canvas(img_window, width=800, height=600)
-        # canvas.pack()
-        #
-        # path = file_loc.get()
-        # img = ImageTk.PhotoImage(Image.open(path), master=canvas)
-        # canvas.create_image(0, 0, image=img)
-        # img_window.mainloop()
-
-        img = Image.open(file_loc.get())
-        img.show()
+        img = mpimg.imread(file_loc.get())
+        imgplot = plt.imshow(img, cmap=plt.get_cmap('gray'), vmin=0, vmax=1)
+        plt.show()
     else:
         showerror("Error creating heightmap", "Please select output file name and location!")
 
@@ -159,7 +158,9 @@ def create_thousand_needles_page(root):
 
     finish_button = create_button(setup_buttons, "Create image",
                                   lambda: create_heightmap(width, height, save_loc, algorithm,
-                                                           thhighpoints, thdotsize, thsmoothing))
+                                                           thhighpoints_src=thhighpoints,
+                                                           thdotsize_src=thdotsize,
+                                                           thsmoothing_src=thsmoothing))
     finish_button.pack(side=tk.LEFT)
 
     prev_page_button = create_button(button_frame2, "Back", lambda: turn_page(thousand_needles_page, page1))
@@ -188,13 +189,63 @@ def create_perlin_page(root):
     button_frame2 = tk.Frame(perlin_page)
     button_frame2.pack()
 
+    scale_label = tk.Label(parameter_grid_frame, text="Scale:")
+    scale_label.grid(row=0, column=0, sticky='S', ipady=2)
+    scale = tk.IntVar()
+    scale_skroller = create_spinbox(parameter_grid_frame, 1, 5000, 1, width=10,
+                                    font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
+                                    justify=tk.RIGHT, textvariable=scale)
+    scale_skroller.grid(row=0, column=1)
+    scale.set(400)
+
+    octaves_label = tk.Label(parameter_grid_frame, text="octaves:")
+    octaves_label.grid(row=1, column=0, sticky='S', ipady=2)
+    octaves = tk.IntVar()
+    octaves_skroller = create_spinbox(parameter_grid_frame, 1, 10, 1, width=10,
+                                      font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
+                                      justify=tk.RIGHT, textvariable=octaves)
+    octaves_skroller.grid(row=1, column=1)
+    octaves.set(30)
+
+    lacunarity_label = tk.Label(parameter_grid_frame, text="lacunarity:")
+    lacunarity_label.grid(row=2, column=0, sticky='S', ipady=2)
+    lacunarity = tk.IntVar()
+    lacunarity_skroller = create_spinbox(parameter_grid_frame, 1, 100, 1, width=10,
+                                         font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
+                                         justify=tk.RIGHT, textvariable=lacunarity)
+    lacunarity_skroller.grid(row=2, column=1)
+    lacunarity.set(2)
+
+    persistence_label = tk.Label(parameter_grid_frame, text="persistence:")
+    persistence_label.grid(row=3, column=0, sticky='S', ipady=2)
+    persistence = tk.IntVar()
+    persistence_skroller = create_spinbox(parameter_grid_frame, 1, 100, 1, width=10,
+                                          font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
+                                          justify=tk.RIGHT, textvariable=persistence)
+    persistence_skroller.grid(row=3, column=1)
+    persistence.set(0.2)
+
+    seed_label = tk.Label(parameter_grid_frame, text="seed:")
+    seed_label.grid(row=4, column=0, sticky='S', ipady=2)
+    seed = tk.IntVar()
+    seed_skroller = create_spinbox(parameter_grid_frame, 0, 1000, 1, width=10,
+                                      font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
+                                      justify=tk.RIGHT, textvariable=seed)
+    seed_skroller.grid(row=4, column=1)
+    seed.set(random.randint(0, 1000))
+
     save_loc = SaveLoc("")
     browse_button = create_button(setup_buttons, "Browse...", print, fg="red", activeforeground="red")
     browse_button.config(command=lambda: save(save_loc, browse_button))
     browse_button.pack(side=tk.LEFT)
 
     finish_button = create_button(setup_buttons, "Create image",
-                                  lambda: create_heightmap(width, height, save_loc, algorithm))
+                                  lambda: create_heightmap(width, height, save_loc, algorithm,
+                                                           scale_src=scale,
+                                                           octaves_src=octaves,
+                                                           lacunarity_src=lacunarity,
+                                                           persistence_src=persistence,
+                                                           seed_src=seed))
     finish_button.pack(side=tk.LEFT)
 
     prev_page_button = create_button(button_frame2, "Back", lambda: turn_page(perlin_page, page1))

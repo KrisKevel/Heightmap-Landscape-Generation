@@ -74,7 +74,7 @@ void EmptyLinkFunctionForGeneratedCodeUnrealLandscapeGameModeBase() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(AUnrealLandscapeGameModeBase, 1358304340);
+	IMPLEMENT_CLASS(AUnrealLandscapeGameModeBase, 676818445);
 	template<> UNREALLANDSCAPE_API UClass* StaticClass<AUnrealLandscapeGameModeBase>()
 	{
 		return AUnrealLandscapeGameModeBase::StaticClass();

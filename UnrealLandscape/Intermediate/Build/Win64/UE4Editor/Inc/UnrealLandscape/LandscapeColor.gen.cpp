@@ -71,7 +71,7 @@ void EmptyLinkFunctionForGeneratedCodeLandscapeColor() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(ALandscapeColor, 784947247);
+	IMPLEMENT_CLASS(ALandscapeColor, 2501019545);
 	template<> UNREALLANDSCAPE_API UClass* StaticClass<ALandscapeColor>()
 	{
 		return ALandscapeColor::StaticClass();

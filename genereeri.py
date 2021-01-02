@@ -214,7 +214,7 @@ def create_perlin_page(root):
                                          font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
                                          justify=tk.RIGHT, textvariable=lacunarity)
     lacunarity_skroller.grid(row=2, column=1)
-    lacunarity.set(2)
+    lacunarity.set(20)
 
     persistence_label = tk.Label(parameter_grid_frame, text="persistence:")
     persistence_label.grid(row=3, column=0, sticky='S', ipady=2)
@@ -223,14 +223,14 @@ def create_perlin_page(root):
                                           font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
                                           justify=tk.RIGHT, textvariable=persistence)
     persistence_skroller.grid(row=3, column=1)
-    persistence.set(0.2)
+    persistence.set(2)
 
     seed_label = tk.Label(parameter_grid_frame, text="seed:")
     seed_label.grid(row=4, column=0, sticky='S', ipady=2)
     seed = tk.IntVar()
     seed_skroller = create_spinbox(parameter_grid_frame, 0, 1000, 1, width=10,
-                                      font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
-                                      justify=tk.RIGHT, textvariable=seed)
+                                   font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
+                                   justify=tk.RIGHT, textvariable=seed)
     seed_skroller.grid(row=4, column=1)
     seed.set(random.randint(0, 1000))
 

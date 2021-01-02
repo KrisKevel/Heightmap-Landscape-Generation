@@ -44,25 +44,31 @@ def create_spinbox(frame, start, stop, step, **kwargs):
 
 def create_heightmap(width_src, height_src, file_loc, algorithm,
                      thhighpoints_src=None, thdotsize_src=None, thsmoothing_src=None,
-                     scale_src=None, octaves_src=None, lacunarity_src=None, persistence_src=None, seed_src=None, secondstr_src=None):
+                     scale_src=None, octaves_src=None, lacunarity_src=None, persistence_src=None, seed_src=None, secondstr_src=None,
+                     seed_min_src=None, seed_max_src=None, magnitude_src=None, magnitude_reduction_src=None):
     if file_loc.get() != "":
         if algorithm == "thousand needles":
             generate_heightmap(height=height_src.get(), width=width_src.get(), algorithm="thousand needles",
+                               save_loc=file_loc.get(),
                                thhighpoints=thhighpoints_src.get(),
                                thdotsize=thdotsize_src.get(),
-                               thsmoothing=thsmoothing_src.get(),
-                               save_loc=file_loc.get())
+                               thsmoothing=thsmoothing_src.get(),)
         elif algorithm == "perlin":
             generate_heightmap(height=height_src.get(), width=width_src.get(), algorithm="perlin",
+                               save_loc=file_loc.get(),
                                scale=scale_src.get(),
                                octaves=octaves_src.get(),
                                lacunarity=lacunarity_src.get()/100,
                                persistence=persistence_src.get()/100,
                                seed=seed_src.get(),
-                               save_loc=file_loc.get())
-        else:
-            generate_heightmap(height=height_src.get(), width=width_src.get(),
-                               algorithm=algorithm, save_loc=file_loc.get())
+                               secondstrength=secondstr_src.get())
+        elif algorithm == "diamondsquare":
+            generate_heightmap(height=height_src.get(), width=width_src.get(), algorithm=algorithm,
+                               save_loc=file_loc.get(),
+                               seed_min=seed_min_src.get()/100,
+                               seed_max=seed_max_src.get()/100,
+                               magnitude=magnitude_src.get()/100,
+                               magnitude_reduction=magnitude_reduction_src.get()/100)
 
         img = mpimg.imread(file_loc.get())
         imgplot = plt.imshow(img, cmap=plt.get_cmap('gray'), vmin=0, vmax=1)
@@ -234,6 +240,15 @@ def create_perlin_page(root):
     seed_skroller.grid(row=4, column=1)
     seed.set(random.randint(0, 1000))
 
+    secondstr_label = tk.Label(parameter_grid_frame, text="secondstr:")
+    secondstr_label.grid(row=5, column=0, sticky='S', ipady=2)
+    secondstr = tk.IntVar()
+    secondstr_skroller = create_spinbox(parameter_grid_frame, 0, 65535, 1, width=10,
+                                        font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
+                                        justify=tk.RIGHT, textvariable=secondstr)
+    secondstr_skroller.grid(row=5, column=1)
+    secondstr.set(60)
+
     save_loc = SaveLoc("")
     browse_button = create_button(setup_buttons, "Browse...", print, fg="red", activeforeground="red")
     browse_button.config(command=lambda: save(save_loc, browse_button))
@@ -245,7 +260,8 @@ def create_perlin_page(root):
                                                            octaves_src=octaves,
                                                            lacunarity_src=lacunarity,
                                                            persistence_src=persistence,
-                                                           seed_src=seed))
+                                                           seed_src=seed,
+                                                           secondstr_src=secondstr))
     finish_button.pack(side=tk.LEFT)
 
     prev_page_button = create_button(button_frame2, "Back", lambda: turn_page(perlin_page, page1))
@@ -271,13 +287,57 @@ def create_diamond_square_page(root):
     button_frame2 = tk.Frame(ds_page)
     button_frame2.pack()
 
+    # minimum seed value
+    seed_min_label = tk.Label(parameter_grid_frame, text="seed_min:")
+    seed_min_label.grid(row=0, column=0, sticky='S', ipady=2)
+    seed_min = tk.IntVar()
+    seed_min_skroller = create_spinbox(parameter_grid_frame, 1, 100, 1, width=10,
+                                       font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
+                                       justify=tk.RIGHT, textvariable=seed_min)
+    seed_min_skroller.grid(row=0, column=1)
+    seed_min.set(17)
+
+    # maximum seed value
+    seed_max_label = tk.Label(parameter_grid_frame, text="seed_max:")
+    seed_max_label.grid(row=1, column=0, sticky='S', ipady=2)
+    seed_max = tk.IntVar()
+    seed_max_skroller = create_spinbox(parameter_grid_frame, 1, 100, 1, width=10,
+                                       font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
+                                       justify=tk.RIGHT, textvariable=seed_max)
+    seed_max_skroller.grid(row=1, column=1)
+    seed_max.set(83)
+
+    # magnitude of change
+    magnitude_label = tk.Label(parameter_grid_frame, text="magnitude:")
+    magnitude_label.grid(row=2, column=0, sticky='S', ipady=2)
+    magnitude = tk.IntVar()
+    magnitude_skroller = create_spinbox(parameter_grid_frame, 1, 100, 5, width=10,
+                                        font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
+                                        justify=tk.RIGHT, textvariable=magnitude)
+    magnitude_skroller.grid(row=2, column=1)
+    magnitude.set(20)
+
+    # level of magnitude reduction
+    magnitude_reduction_label = tk.Label(parameter_grid_frame, text="magnitude_reduction:")
+    magnitude_reduction_label.grid(row=3, column=0, sticky='S', ipady=2)
+    magnitude_reduction = tk.IntVar()
+    magnitude_reduction_skroller = create_spinbox(parameter_grid_frame, 1, 100, 5, width=10,
+                                                  font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
+                                                  justify=tk.RIGHT, textvariable=magnitude_reduction)
+    magnitude_reduction_skroller.grid(row=3, column=1)
+    magnitude_reduction.set(60)
+
     save_loc = SaveLoc("")
     browse_button = create_button(setup_buttons, "Browse...", print, fg="red", activeforeground="red")
     browse_button.config(command=lambda: save(save_loc, browse_button))
     browse_button.pack(side=tk.LEFT)
 
     finish_button = create_button(setup_buttons, "Create image",
-                                  lambda: create_heightmap(width, height, save_loc, algorithm))
+                                  lambda: create_heightmap(width, height, save_loc, algorithm,
+                                                           seed_min_src=seed_min,
+                                                           seed_max_src=seed_max,
+                                                           magnitude_src=magnitude,
+                                                           magnitude_reduction_src=magnitude_reduction))
     finish_button.pack(side=tk.LEFT)
 
     prev_page_button = create_button(button_frame2, "Back", lambda: turn_page(ds_page, page1))

@@ -12,9 +12,10 @@ from itertools import chain
 from copy import deepcopy
 
 
-def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, algorithm="perlin",
-                       thhighpoints=300, thdotsize=30, thsmoothing=40, save_loc="heightmap.png",
-                       scale=400, octaves=30, lacunarity=2, persistence=0.2, seed=None):
+def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, algorithm="perlin", save_loc="heightmap.png",
+                       thhighpoints=300, thdotsize=30, thsmoothing=40,
+                       scale=400, octaves=30, lacunarity=2, persistence=0.2, seed=None, secondstrength=60,
+                       seed_min=0.17, seed_max=0.83, magnitude=0.2, magnitude_reduction=0.6):
     # max value of pixel
     maxval = pow(2, bitdepth) - 1
     image = [[0 for i in range(height)] for j in range(width)]
@@ -22,9 +23,9 @@ def generate_heightmap(height=2017, width=2017, greyscale=True, bitdepth=16, alg
     if algorithm == "thousand needles":
         image = thousandNeedles(image, height, width, thhighpoints, thdotsize, thsmoothing, maxval)
     elif algorithm == "perlin":
-        image = perlin(image, height, width, maxval, scale, octaves, persistence, lacunarity, seed)
+        image = perlin(image, height, width, maxval, scale, octaves, persistence, lacunarity, seed, secondstrength)
     elif algorithm == "diamondsquare":
-        image = diamond_square(height, bitdepth)
+        image = diamond_square(height, bitdepth, seed_min, seed_max, magnitude, magnitude_reduction)
 
     with open(save_loc, "wb") as file:
         w = png.Writer(height=height, width=width, greyscale=greyscale, bitdepth=bitdepth)
@@ -58,7 +59,7 @@ def thousandNeedles(image, height, width, thhighpoints=300, thdotsize=30, thsmoo
 
 # Code was inspired by and based on the blog post https://engineeredjoy.com/blog/perlin-noise/
 def perlin(image, height, width, maxval=pow(2, 16) - 1, scale=400, octaves=30, persistence=0.2, lacunarity=2,
-           seed=None, secondstrength = 60):
+           seed=None, secondstrength=60):
     if seed is None:
         seed = np.random.randint(0, 100)
         print("creating Perlin Noise heightmap, seed was {}".format(seed))
@@ -87,7 +88,7 @@ def perlin(image, height, width, maxval=pow(2, 16) - 1, scale=400, octaves=30, p
               for j in range(width)]
               for i in range(height)]
 
-    if secondstrength is False:
+    if secondstrength == 0:
         image = [[abs(math.floor(image[i][j] * maxval))
               for j in range(width)]
               for i in range(height)]
@@ -167,6 +168,9 @@ def square(heightmap, magnitude, max_val):
 # Arbitrary positive integer size, seeds between 0 and 1
 def diamond_square(size, bitdepth, seed_min=0.17, seed_max=0.83, magnitude=0.2, magnitude_reduction=0.6):
     max_val = 2**bitdepth - 1
+
+    if seed_min > seed_max:
+        seed_min, seed_max = seed_max, seed_min
 
     # Data preprocessing
     dimension = 1 + (1 << (size - 1).bit_length())

@@ -2,12 +2,12 @@
 	"Targets": [
 		{
 			"Name": "UnrealLandscape",
-			"Path": "C:\\Users\\Kristina\\Documents\\projects\\UnrealLandscape\\Source\\UnrealLandscape.Target.cs",
+			"Path": "C:\\Users\\Kristina\\Documents\\projects\\HeightmapLandscape\\UnrealLandscape 4.26\\Source\\UnrealLandscape.Target.cs",
 			"Type": "Game"
 		},
 		{
 			"Name": "UnrealLandscapeEditor",
-			"Path": "C:\\Users\\Kristina\\Documents\\projects\\UnrealLandscape\\Source\\UnrealLandscapeEditor.Target.cs",
+			"Path": "C:\\Users\\Kristina\\Documents\\projects\\HeightmapLandscape\\UnrealLandscape 4.26\\Source\\UnrealLandscapeEditor.Target.cs",
 			"Type": "Editor"
 		}
 	]

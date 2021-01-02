@@ -21,7 +21,7 @@ void EmptyLinkFunctionForGeneratedCodeUnrealLandscape_init() {}
 				nullptr,
 				0,
 				PKG_CompiledIn | 0x00000000,
-				0xC4A54B9B,
+				0xBD351C64,
 				0xB04E4847,
 				METADATA_PARAMS(nullptr, 0)
 			};

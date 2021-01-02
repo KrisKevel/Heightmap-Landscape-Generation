@@ -3,7 +3,7 @@
   <ItemGroup>
     <None Include="..\..\UnrealLandscape.uproject" />
     <Filter Include="Source">
-      <UniqueIdentifier>{38521DAB-2A4A-4494-91EB-EFED63474551}</UniqueIdentifier>
+      <UniqueIdentifier>{7B3D957A-8069-463B-A01C-62C9C19E4B46}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Source\UnrealLandscape.Target.cs">
       <Filter>Source</Filter>
@@ -11,8 +11,9 @@
     <None Include="..\..\Source\UnrealLandscapeEditor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\RealisticForestV1.png" />
     <Filter Include="Config">
-      <UniqueIdentifier>{140EB2E7-3C4E-4370-A968-197D3172867E}</UniqueIdentifier>
+      <UniqueIdentifier>{E0234CEC-702E-40DA-9B71-8465760977B3}</UniqueIdentifier>
     </Filter>
     <None Include="..\..\Config\DefaultEditor.ini">
       <Filter>Config</Filter>
@@ -24,7 +25,7 @@
       <Filter>Config</Filter>
     </None>
     <Filter Include="Source\UnrealLandscape">
-      <UniqueIdentifier>{704865DF-B959-4C5F-B0C8-8CF8FFCC8B53}</UniqueIdentifier>
+      <UniqueIdentifier>{C01AB054-0513-4882-8BD4-42FCD71BFB34}</UniqueIdentifier>
     </Filter>
     <ClCompile Include="..\..\Source\UnrealLandscape\LandscapeColor.cpp">
       <Filter>Source\UnrealLandscape</Filter>

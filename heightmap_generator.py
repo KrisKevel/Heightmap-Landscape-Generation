@@ -115,7 +115,7 @@ def diamond(heightmap, magnitude, max_val):
                                                                                                 + heightmap[p1_y + side][p1_x]
                                                                                                 + heightmap[p1_y + side][p2_x])
                                                                                                / 4
-                                                                                               + random.uniform(0, magnitude)),
+                                                                                               + random.uniform(-magnitude, magnitude)),
                                                                                               max_val), 0))
                         break
     return new_heightmap
@@ -142,7 +142,7 @@ def square(heightmap, magnitude, max_val):
                                                                           + heightmap[p1_y+radius][underflow_x]
                                                                           + heightmap[p1_y+radius][overflow_x])
                                                                          / 4
-                                                                        + random.uniform(0, magnitude)), max_val), 0))
+                                                                        + random.uniform(-magnitude, magnitude)), max_val), 0))
                         node_unhandled = False
                         break
                 if node_unhandled and p1_y < size-1:

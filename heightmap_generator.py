@@ -63,6 +63,8 @@ def perlin(image, height, width, maxval=pow(2, 16) - 1, scale=400, octaves=30, p
         seed = np.random.randint(0, 100)
         print("creating Perlin Noise heightmap, seed was {}".format(seed))
 
+
+
     image = [[pnoise2(i / scale,
                       j / scale,
                       octaves=octaves,
@@ -74,12 +76,28 @@ def perlin(image, height, width, maxval=pow(2, 16) - 1, scale=400, octaves=30, p
               for j in range(width)]
               for i in range(height)]
 
-    image = [[abs(math.floor(image[i][j] * maxval))
-              for j in range(len(image[0]))]#width
-              for i in range(len(image))]   #height
+    secondnoise = [[pnoise2(i / scale,
+                      j / scale,
+                      octaves=octaves,
+                      persistence=persistence,
+                      lacunarity=lacunarity,
+                      repeatx=1024,
+                      repeaty=1024,
+                      base=seed+1)
+              for j in range(width)]
+              for i in range(height)]
+
+    if secondstrength is False:
+        image = [[abs(math.floor(image[i][j] * maxval))
+              for j in range(width)]
+              for i in range(height)]
+    else:
+    #Normalizing noise to be in the range [0, maxval], adding noise ranging from [-maxval/secondstrength, maxval/secondstrength]
+        image = [[abs(math.floor(image[i][j] * (maxval - maxval / secondstrength) + (secondnoise[i][j] - 0.5) * maxval / (secondstrength*2) + maxval / secondstrength))
+              for j in range(width)]
+              for i in range(height)]
 
     return image
-
 
 def diamond(heightmap, magnitude, max_val):
     size = len(heightmap)

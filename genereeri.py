@@ -211,7 +211,7 @@ def create_perlin_page(root):
                                       font=Font(family='Helvetica', size=12), repeatdelay=60, repeatinterval=40,
                                       justify=tk.RIGHT, textvariable=octaves)
     octaves_skroller.grid(row=1, column=1)
-    octaves.set(30)
+    octaves.set(3)
 
     lacunarity_label = tk.Label(parameter_grid_frame, text="lacunarity:")
     lacunarity_label.grid(row=2, column=0, sticky='S', ipady=2)
